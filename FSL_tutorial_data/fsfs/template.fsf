@@ -30,7 +30,7 @@ set fmri(featwatcher_yn) 1
 set fmri(sscleanup_yn) 0
 
 # Output directory
-set fmri(outputdir) "/Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub001/run1"
+set fmri(outputdir) "/Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/subSUBNUM/run1"
 
 # TR(s)
 set fmri(tr) 2.000000 
@@ -273,13 +273,13 @@ set fmri(totalVoxels) 22364160
 set fmri(ncopeinputs) 0
 
 # 4D AVW data or FEAT directory (1)
-set feat_files(1) "/Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub001/bold"
+set feat_files(1) "/Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/subSUBNUM/bold"
 
 # Add confound EVs text file
 set fmri(confoundevs) 0
 
 # Subject's structural image for analysis 1
-set highres_files(1) "/Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub001/highres001_brain"
+set highres_files(1) "/Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/subSUBNUM/highres001_brain"
 
 # EV 1 title
 set fmri(evtitle1) "GO"
@@ -313,7 +313,7 @@ set fmri(tempfilt_yn1) 1
 set fmri(deriv_yn1) 1
 
 # Custom EV file (EV 1)
-set fmri(custom1) "/Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub001/cond001.txt"
+set fmri(custom1) "/Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/subSUBNUM/cond001.txt"
 
 # Orthogonalise EV 1 wrt EV 0
 set fmri(ortho1.0) 0
@@ -362,7 +362,7 @@ set fmri(tempfilt_yn2) 1
 set fmri(deriv_yn2) 1
 
 # Custom EV file (EV 2)
-set fmri(custom2) "/Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub001/cond002.txt"
+set fmri(custom2) "/Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/subSUBNUM/cond002.txt"
 
 # Orthogonalise EV 2 wrt EV 0
 set fmri(ortho2.0) 0
@@ -460,7 +460,7 @@ set fmri(tempfilt_yn4) 1
 set fmri(deriv_yn4) 1
 
 # Custom EV file (EV 4)
-set fmri(custom4) "/Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub001/cond004.txt"
+set fmri(custom4) "/Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/subSUBNUM/cond004.txt"
 
 # Orthogonalise EV 4 wrt EV 0
 set fmri(ortho4.0) 0

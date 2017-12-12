@@ -3,16 +3,16 @@
 # This script will generate each subjects design.fsf, but does not run it.
 # It depends on your system how will launch feat
 
-import os
+import os # Allows you to run linux commands
 import glob
 
 # Set this to the directory all of the sub### directories live in
-studydir = '/Users/jeanettemumford/Documents/Research/Talks/MumfordBrainStats/ds008'
+studydir = '/Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data'
 
 # Set this to the directory where you'll dump all the fsf files
 # May want to make it a separate directory, because you can delete them all o
 #   once Feat runs
-fsfdir="%s/Scripts/fsfs"%(studydir)
+fsfdir="%s/fsfs"%(studydir)
 
 # Get all the paths!  Note, this won't do anything special to omit bad subjects
 subdirs=glob.glob("%s/sub[0-9][0-9][0-9]/BOLD/task001_run0[0-9][0-9]"%(studydir))
