@@ -1,0 +1,6 @@
+</pre><hr>Initialisation<br><pre>
+
+/usr/local/fsl/bin/fslmaths /Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub001/bold prefiltered_func_data -odt float
+Total original volumes = 182
+
+/usr/local/fsl/bin/fslroi prefiltered_func_data example_func 91 1

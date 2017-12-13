@@ -1,0 +1,21 @@
+
+/bin/cp /Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/fsfs/design_sub002.fsf design.fsf
+
+/usr/local/fsl/bin/feat_model design
+
+mkdir .files;cp /usr/local/fsl/doc/fsl.css .files;cp -r /usr/local/fsl/doc/images .files/images
+
+/usr/local/fsl/bin/fsl_sub -T 10 -l logs -N feat0_init   /usr/local/fsl/bin/feat /Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub002/run1.feat/design.fsf -D /Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub002/run1.feat -I 1 -init
+41481
+
+/usr/local/fsl/bin/fsl_sub -T 78 -l logs -N feat2_pre -j 41481  /usr/local/fsl/bin/feat /Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub002/run1.feat/design.fsf -D /Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub002/run1.feat -I 1 -prestats
+41555
+
+/usr/local/fsl/bin/fsl_sub -T 4 -l logs -N feat3_film -j 41555  /usr/local/fsl/bin/feat /Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub002/run1.feat/design.fsf -D /Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub002/run1.feat -I 1 -stats
+43586
+
+/usr/local/fsl/bin/fsl_sub -T 119 -l logs -N feat4_post -j 43586  /usr/local/fsl/bin/feat /Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub002/run1.feat/design.fsf -D /Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub002/run1.feat -poststats 0 
+43875
+
+/usr/local/fsl/bin/fsl_sub -T 1 -l logs -N feat5_stop -j 41555,43586,43875  /usr/local/fsl/bin/feat /Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub002/run1.feat/design.fsf -D /Users/kristadestasio/Dropbox/workshops/fmri_workshop/FSL_tutorial_data/sub002/run1.feat -stop
+43910

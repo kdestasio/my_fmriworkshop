@@ -58,7 +58,7 @@ def prepro(basedir):
         output_path=item.strip('.nii.gz')
         output=output_path+('_brain')
         os.system("/usr/local/fsl/bin/bet %s %s -F"%(input, output))
-        pdb.set_trace() # debug
+#        pdb.set_trace() # debug
 def main():
     basedir='/Users/kristadestasio/Desktop/data'
     prepro(basedir)
