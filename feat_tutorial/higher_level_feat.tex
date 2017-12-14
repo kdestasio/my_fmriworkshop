@@ -1,0 +1,73 @@
+\documentclass[titlepage,12pt] {article}
+\usepackage{setspace}
+\usepackage{epsfig}
+\usepackage{amsbsy}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{graphicx}
+%\usepackage{authordate1-4}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{tabularx}
+
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\bv}{\begin{verbatim}}
+\newcommand{\ev}{\end{verbatim}}
+
+
+\topmargin =-2cm \evensidemargin = -0.02in \oddsidemargin=-0.02in
+\textwidth=16.5cm \textheight=24cm
+%\def\baselinestretch{1.9}
+
+%puts a header on all pages
+%\pagestyle{fancy} \fancyfoot[RE]{\thepage}
+%\fancyhead[RE]{\bfseries\thepage}
+
+\begin{document}
+
+
+\section*{Running a higher level FEAT}
+As I mentioned in class, if you have multiple runs per subject, FSL requires 3 levels of analysis: within-run, within-subjects (combining the runs) and between-subject(group).  For our bart data, we only have a single run per subject, so it requires a total of 2 levels.  Even so, I'm including the setup for a within-subject, level 2 (of 3 levels) analysis as well.  I'm going to call this ``within-subject" and the highest level will simply be called ``Group".
+
+\subsection*{Running a within-subject analysis: combining multiple runs}
+To combine runs we don't have enough data to estimate the between-run variance in a standard mixed model.  We're actually better off setting that to 0!  You may be thinking that's a crazy thing to do BUT the variance will be brought back into the data in the group analysis.  It just magically appears.  I hopefully had time to show this illustration during the lecture.
+
+\be
+   \item  Fire up the Feat gui!
+   \item The first thing you need to do is change the top pulldown menu from \verb=First Level Analysis= to \verb=Higher Level Analysis=.  Leave the \verb=Stats+post stats= option.  
+    \item  \textbf{Lower level Feats versus lower level copes.}  There are two input options for lower level analyses and people often get hung up on which option they should choose.  If you choose to enter lower level feats, what happens is that it applies the model you are specifying \emph{separately} to each lower level cope.  So, in our case, if we choose  the lower level feat option, if you have 6 lower level copes that were estimated the same model will be applied to each cope separately. When you load up all your lower level feats, you'll see checkboxes appear, one for each cope.\\
+      On the other hand, sometimes you will need to enter lower level copes instead.  For example, you may have modeled a stop contrast and a go contrast in your level 1 analysis, but you forgot to estimate the stop-go contrast.  In order to do this in the second level you would need to enter lower level copes, since this is the only way you could subtract stop from go.  \textbf{Note, that statistically it is preferred that you construct any difference or sum contrasts that you can in the first level.}  This is because if two of your covariates are correlated, you need to take this correlation into consideration.  If you \emph{don't} do it at the first level, the covariance information is lost.  Only variances of contrasts are carried into the higher level analyses.\\
+      In most cases you'll use the lower level feat option.  Remember, you're only entering runs from a single subject into this model.
+      \item Set your output directory.  Do this the same way we set up the level 1 output.  Call it something like lev2 and put it in the subject's directory. 
+      \item Now you're ready for the \verb=Stats= tab.  First, select \verb=Fixed Effects=.  This is \emph{always} your option for a level 2 analysis.  After all, you're only entering 3 runs, how can you estimate a decent variance with only 3 observations?  Answer:  You can't!  Remember, fixed effects analyses only carry out a weighted model estimation where the lower level variances are used as weights.  No new variances are estimated at this level!  
+      \item Click \verb=Full Model Setup=.  Remember we don't trust model wizzards!  I wouldn't get in the habit of using these.   What are we modeling in the second level?  Most of the time you simply want an average, so enter a column of 1s. Don't forget to enter the \emph{single} cope that is required.  Be careful about the group column, it is not actually part of the design, so it isn't your column of 1s.  Pretend it isn't even there.
+      \item Post stats tab.  We still don't really need thresholded stat images, so why waste time estimating them and space storing all of the additional files?  Also, please uncheck \verb=time series plots=.  
+      \item \textbf{Running it!}  Since you need to run multiple models, one for each subject, you'll want to simply save out the fsf file, generate a template fsf and then write a search/replace script (we used python, but you can use whatever you'd like) to generate an fsf for each subject and run it.  There's an example of this script in the directory of python scripts I distributed earlier, which you can get to  \href{https://tinyurl.com/fsl-tutorial}{https://tinyurl.com/fsl-tutorial}
+      \ee
+
+\subsection*{Group analysis}
+    \be
+    \item Create a Group directory to store your results.  I typically stick this just outside the subject directories.  
+    \item  Importantly, you \emph{must} have a reg directory in your first level feat to run higher level analyses.  Look in the first level feat you ran yesterday.  Do you see it?  Check out a bart.feat directory that you downloaded from openfmri.  Do you see it there?  You will see it for your feat, since you ran registration within feat.  You will not see it for the openfmri bart.feat because they processed the data with fmriprep.  No worries, we can create our own reg directory!  We will use an adaptation of this tutorial I posted online \href{http://mumfordbrainstats.tumblr.com/post/166054797696/feat-registration-workaround}{http://mumfordbrainstats.tumblr.com/post/166054797696/feat-registration-workaround}.  I wrote a script for you.  Using the dropbox link I distributed, find the \verb+make_reg_dir.py+ script.
+    \item  Open the \verb+make_reg_dir.py+ script and have a look.  You only need to change the basedir variable to the proper path on your machine.  Change it, run the script and take another look in your bart directories.  Do you have reg directories now?  I hope so!  If not, ask for help.
+    \item Fire up the feat GUI!  Once you have a reg directory, you're ready to go!
+      \item For the same reasons as in the second level analysis, you will use the lower level feats option.  Change this and enter your lower level feats directories for all 18 subjects.  
+      \item  Once you've entered the feats you will have TONS of yellow check boxes.  We will be here until next week waiting for feat to run if we run all of them.  Let's uncheck all but the first.  So we'll only run a single lower level cope.  Pop open a design.png from a first level bart.feat analysis and tell me what the contrast is.
+      \item Stats tab.  Select Flame1.  There's an outlier deweighting option, which is nice in theory but it takes a very, very long time to run.  This procedure uses a Bayesian approach to downweight subjects who may be outliers.  I would skip it.  Set up your design, which will just be a group mean.  A single ev of a column of 1s and run the positive and negative contrasts.  Ask me for help if you don't know what that means.  Again, skip the ``group" column.  That isn't used and shouldn't be used.  I'll describe what it does during lecture.
+            \item Post stats tab.  Finally!  We're going to threshold some statistics!  Make sure the cluster forming threshold is at 3.1!  If not, you could have trouble with reviewers in the future.  Especially if I'm your'e reviewer :) Don't forget to deselect the create time series plots option! 
+      \item Let your analysis run and then look around the directories and load some of your thresholded zstat images in fslview to see if you have any activation.  Although you can look at the tresholded zstat images in the html output, it is also nice to load them in fslview.  If you use the \verb=rendered= images, they will have a structural image underneath them, which is helpful.
+      \item  A couple of important files.  All of the files in the .gfeat directory are more or less important.  There are a couple that are helpful for you to know about (other than your zstat and thresholded zstat images)
+      \be
+        \item \verb=filtered_func_data=:  This is a 4d file that contains all of the data for the \emph{dependent} variables in your model.  In other words, these are the lower level copes that were fed into the analysis.  This is the first place I look if my results look weird.  I play the movie of these images in fslview and look for some unusual suspects.  Sometimes you'll find outlier images or zero images.
+        \item \verb=mean_func=:  This is the average of the mean\_funcs over all runs and all subjects.  If you ever need to calculate percent signal change (and I'm guessing you will!) you will need this file.
+      \ee
+    \ee
+
+
+\end{document}
+
+
+
+
+
